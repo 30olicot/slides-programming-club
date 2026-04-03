@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cedar Falls Programming Club | 4K</title>
+    <style>
+      @import url('https://fonts.googleapis.com');
+
+      :root {
+        --bg: #010103; 
+        --accent: #ffffff;
+        --glass: rgba(255, 255, 255, 0.03);
+        --border: rgba(255, 255, 255, 0.08);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--bg);
+        color: var(--accent);
+        font-family: 'Inter', sans-serif;
+        overflow-y: hidden;
+        position: relative;
+        height: 100vh;
+        /* Prevents sub-pixel jitter on 4K screens */
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* 4K SPACE ENGINE */
+      .space-bg {
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, #08081a 0%, #010103 100%);
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      /* MULTI-LAYERED VOLUMETRIC NEBULA */
+      .nebula-wrap {
+        position: absolute;
+        inset: -50%;
+        width: 200%;
+        height: 200%;
+        transform: translateZ(0); /* Force GPU acceleration */
+      }
+
+      .nebula {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 80vmax; height: 80vmax;
+        background: radial-gradient(circle, rgba(63, 94, 251, 0.12) 0%, rgba(252, 70, 107, 0.04) 40%, transparent 70%);
+        filter: blur(80px);
+        transform: translate(-50%, -50%);
+        animation: pulseNebula 15s ease-in-out infinite alternate;
+        will-change: transform, opacity;
+      }
+
+      @keyframes pulseNebula {
+        0% { opacity: 0.3; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+        100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.15) rotate(5deg); }
+      }
+
+      /* ULTRA-SMOOTH STAR DRIFT */
+      .stars {
+        position: absolute;
+        inset: -100px;
+        background-image: 
+          radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.8), transparent),
+          radial-gradient(1.5px 1.5px at 50% 70%, rgba(255,255,255,0.5), transparent),
+          radial-gradient(1px 1px at 80% 40%, rgba(255,255,255,0.9), transparent);
+        background-size: 400px 400px;
+        animation: smoothDrift 120s linear infinite;
+        will-change: transform;
+      }
+
+      @keyframes smoothDrift {
+        from { transform: translate3d(0, 0, 0); }
+        to { transform: translate3d(-400px, -400px, 0); }
+      }
+
+      /* CINEMATIC SHOOTING STARS */
+      .shooting-star {
+        position: absolute;
+        width: 150px;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+        transform: rotate(-45deg);
+        opacity: 0;
+        will-change: transform, opacity;
+        animation: hyperShoot 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+
+      .s1 { top: 10%; left: 80%; animation-delay: 0s; }
+      .s2 { top: 40%; left: 100%; animation-delay: 3.5s; }
+      .s3 { top: 15%; left: 40%; animation-delay: 6s; }
+
+      @keyframes hyperShoot {
+        0% { transform: translate3d(0, 0, 0) rotate(-45deg); opacity: 0; }
+        5% { opacity: 1; }
+        15% { transform: translate3d(-100vh, 100vh, 0) rotate(-45deg); opacity: 0; }
+        100% { opacity: 0; }
+      }
+
+      /* CONTENT UI */
+      .deck {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        height: 100vh; width: 100vw;
+        scroll-behavior: smooth;
+        position: relative; z-index: 1;
+      }
+      .deck::-webkit-scrollbar { display: none; }
+
+      section {
+        flex: 0 0 100vw;
+        height: 100vh;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10%;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 12vw, 8rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        margin-bottom: 10px;
+        /* Text shadow for a subtle "bloom" effect */
+        text-shadow: 0 0 30px rgba(255,255,255,0.15);
+      }
+
+      .module {
+        background: var(--glass);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        border: 1px solid var(--border);
+        padding: 50px;
+        border-radius: 16px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .module:hover {
+        transform: scale(1.02) translateZ(0);
+        border-color: rgba(255,255,255,0.2);
+      }
+
+      .nav-hint {
+        position: fixed;
+        bottom: 40px;
+        font-size: 0.65rem;
+        letter-spacing: 0.5em;
+        color: #444;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="space-bg">
+      <div class="nebula-wrap">
+        <div class="nebula"></div>
+      </div>
+      <div class="stars"></div>
+      <div class="shooting-star s1"></div>
+      <div class="shooting-star s2"></div>
+      <div class="shooting-star s3"></div>
+    </div>
+
+    <div class="deck">
+      <section>
+        <h2 style="color:#555; letter-spacing:0.5em; font-size:0.75rem; margin-bottom:30px; font-weight:300;">CEDAR FALLS | Holmes Jr. High</h2>
+        <h1>PROGRAMMING</h1>
+        <p style="color: #444; font-size: 1.1rem; letter-spacing: 0.1em;">Session 01</p>
+        <div class="nav-hint">SCROLL TO BEGIN</div>
+      </section>
+
+      <section>
+        <h2 style="color:#555; letter-spacing:0.5em; font-size:0.75rem; margin-bottom:30px;">THE AGENDA</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; width: 100%; max-width: 1000px;">
+          <div class="module">
+            <h3 style="letter-spacing: 0.1em; margin-bottom: 15px;">01. THE SETUP</h3>
+            <p style="color:#888; font-weight:300; line-height:1.6;">Synchronizing local environments. We'll help you install the core compilers and editors needed to build.</p>
+          </div>
+          <div class="module">
+            <h3 style="letter-spacing: 0.1em; margin-bottom: 15px;">02. THE START</h3>
+            <p style="color:#888; font-weight:300; line-height:1.6;">Deploying the first script. Dive into our initial project and witness your code execute in real-time.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 style="color:#555; letter-spacing:0.5em; font-size:0.75rem; margin-bottom:30px;">THE TOOLS</h2>
+        <div class="module" style="width: 100%; max-width: 700px;">
+          <ul style="list-style: none; color: #888; line-height: 2.2; font-weight: 300;">
+            <li>• <span style="color:white">Authentication</span> via Github</li>
+            <li>• <span style="color:white">Allocation</span> of Workspace Folders</li>
+            <li>• <span style="color:white">Connection</span> to Comms Channels</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h1>LOG ON.</h1>
+        <h2 style="color: white; margin-top: 10px; font-size:1rem; opacity: 0.4; letter-spacing: 0.2em;">SYSTEMS OPERATIONAL.</h2>
+      </section>
+    </div>
+
+  </body>
+</html>
