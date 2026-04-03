@@ -1,4 +1,4 @@
-# Cedar Falls Programming Club
+# Holmes Jr. High | Programming Club
 ### Created by: Oliver/otto Cotten 
 ### [Live Slideshow Link](https://30olicot.github.io/SLIDES-PC/index.html)
 
