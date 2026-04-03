@@ -1,6 +1,6 @@
 # Programming Club
 ### Created by: Oliver/otto Cotten 
-### [Live Slideshow Link](https://30olicot.github.io/SLIDES-PC/updated.html)
+### [Live Slideshow Link](https://30olicot.github.io/slides-programming-club/)
 
 ---
 
