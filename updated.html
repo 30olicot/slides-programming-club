@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Club</title>
+    <style>
+      @import url('https://googleapis.com');
+
+      :root {
+        --bg: #010103; 
+        --accent: #ffffff;
+        --glass: rgba(255, 255, 255, 0.03);
+        --border: rgba(255, 255, 255, 0.08);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--bg);
+        color: var(--accent);
+        font-family: 'Inter', sans-serif;
+        overflow-y: hidden;
+        position: relative;
+        height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .space-bg {
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, #08081a 0%, #010103 100%);
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .nebula-wrap {
+        position: absolute;
+        inset: -50%;
+        width: 200%;
+        height: 200%;
+        transform: translateZ(0);
+      }
+
+      .nebula {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 80vmax; height: 80vmax;
+        background: radial-gradient(circle, rgba(63, 94, 251, 0.12) 0%, rgba(252, 70, 107, 0.04) 40%, transparent 70%);
+        filter: blur(80px);
+        transform: translate(-50%, -50%);
+        animation: pulseNebula 15s ease-in-out infinite alternate;
+      }
+
+      @keyframes pulseNebula {
+        0% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+      }
+
+      .stars {
+        position: absolute;
+        inset: -100px;
+        background-image: 
+          radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.8), transparent),
+          radial-gradient(1.5px 1.5px at 50% 70%, rgba(255,255,255,0.5), transparent),
+          radial-gradient(1px 1px at 80% 40%, rgba(255,255,255,0.9), transparent);
+        background-size: 400px 400px;
+        animation: smoothDrift 120s linear infinite;
+      }
+
+      @keyframes smoothDrift {
+        from { transform: translate3d(0, 0, 0); }
+        to { transform: translate3d(-400px, -400px, 0); }
+      }
+
+      .shooting-star {
+        position: absolute;
+        width: 150px;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+        transform: rotate(-45deg);
+        opacity: 0;
+        animation: hyperShoot 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+
+      .s1 { top: 10%; left: 80%; animation-delay: 0s; }
+      .s2 { top: 40%; left: 100%; animation-delay: 3.5s; }
+      .s3 { top: 15%; left: 40%; animation-delay: 6s; }
+
+      @keyframes hyperShoot {
+        0% { transform: translate3d(0, 0, 0) rotate(-45deg); opacity: 0; }
+        5% { opacity: 1; }
+        15% { transform: translate3d(-100vh, 100vh, 0) rotate(-45deg); opacity: 0; }
+        100% { opacity: 0; }
+      }
+
+      .deck {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        height: 100vh; width: 100vw;
+        scroll-behavior: smooth;
+        position: relative; z-index: 1;
+      }
+      .deck::-webkit-scrollbar { display: none; }
+
+      section {
+        flex: 0 0 100vw;
+        height: 100vh;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10%;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 8vw, 6rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        margin-bottom: 10px;
+        text-shadow: 0 0 30px rgba(255,255,255,0.15);
+      }
+
+      .module {
+        background: var(--glass);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border);
+        padding: 35px;
+        border-radius: 12px;
+      }
+
+      .nav-hint {
+        position: fixed;
+        bottom: 40px;
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        color: #666;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="space-bg">
+      <div class="nebula-wrap"><div class="nebula"></div></div>
+      <div class="stars"></div>
+      <div class="shooting-star s1"></div>
+      <div class="shooting-star s2"></div>
+      <div class="shooting-star s3"></div>
+    </div>
+
+    <div class="deck">
+      <section>
+        <h2 style="color:#777; letter-spacing:0.4em; font-size:0.8rem; margin-bottom:20px;">CEDAR FALLS</h2>
+        <h1>PROGRAMMING CLUB</h1>
+        <p style="color: #666; font-size: 1rem;">Session One</p>
+        <div class="nav-hint">SCROLL TO START</div>
+      </section>
+
+      <section>
+        <h2 style="color:#777; letter-spacing:0.4em; font-size:0.8rem; margin-bottom:30px;">THE PLAN</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; max-width: 900px;">
+          <div class="module">
+            <h3 style="margin-bottom: 10px;">1. LOG IN</h3>
+            <p style="color:#aaa; font-size: 0.95rem; line-height:1.5;">We will help you sign in to the sites we need to build projects.</p>
+          </div>
+          <div class="module">
+            <h3 style="margin-bottom: 10px;">2. FIRST SITE</h3>
+            <p style="color:#aaa; font-size: 0.95rem; line-height:1.5;">We will show you how to put your first website on the internet today.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 style="color:#777; letter-spacing:0.4em; font-size:0.8rem; margin-bottom:30px;">HOW TO JOIN</h2>
+        <div class="module" style="width: 100%; max-width: 750px;">
+          <h3 style="color:white; margin-bottom: 15px;">Create Your GitHub Account</h3>
+          <p style="color:#aaa; line-height: 1.6; margin-bottom: 15px;">
+            1. Go to <strong>github.com</strong> and click "Sign up".<br>
+            2. Use your school email: <strong>00example@student.cfschools.org</strong><br>
+            3. Choose a password and a username you like.<br>
+            4. Check your school Gmail to verify your account.
+          </p>
+          <p style="color:white; font-size: 0.9rem; border-top: 1px solid var(--border); pt: 15px; margin-top: 15px;">
+            If you already have an account, just click <strong>Sign In</strong>!
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h1>SYSTEMS READY.</h1>
+        <h2 style="color: #555; margin-top: 10px; font-size:0.9rem; letter-spacing: 0.2em;">LET'S START CODING.</h2>
+      </section>
+    </div>
+
+  </body>
+</html>
